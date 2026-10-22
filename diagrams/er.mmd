@@ -1,0 +1,38 @@
+erDiagram
+    Categorii_Evenimente ||--o{ Evenimente : "include"
+    Locatii ||--o{ Evenimente : "gazduieste"
+    Evenimente ||--o{ Bilete : "aloca"
+    Clienti ||--o{ Comenzi : "plaseaza"
+    Comenzi ||--o{ Bilete : "contine"
+
+    Categorii_Evenimente {
+        int id_categorie PK
+        string nume_categorie
+    }
+    Locatii {
+        int id_locatie PK
+        string nume_sala
+        int capacitate
+    }
+    Evenimente {
+        int id_eveniment PK
+        int id_categorie FK
+        int id_locatie FK
+        string titlu
+    }
+    Clienti {
+        int id_client PK
+        string nume
+        string email
+    }
+    Comenzi {
+        int id_comanda PK
+        int id_client FK
+        date data_comanda
+    }
+    Bilete {
+        int id_bilet PK
+        int id_comanda FK
+        int id_eveniment FK
+        int numar_loc
+    }
