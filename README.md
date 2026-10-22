@@ -8,7 +8,7 @@
 - **An:** 2026
 
 ## 2. Descrierea Proiectului
-Acest proiect este o bază de date pentru o casă de bilete. Scopul lui este să țină evidența clară a spectacolelor, a sălilor și a biletelor cumpărate de clienți, astfel încât să nu se suprapună locurile[cite: 1, 2].
+Acest proiect este o bază de date pentru o casă de bilete. Scopul lui este să țină evidența clară a spectacolelor, a sălilor și a biletelor cumpărate de clienți, astfel încât să nu se suprapună locurile.
 
 ## 3. Tabelele Bazei de Date
 Proiectul este simplu și folosește 6 tabele:
