@@ -1,38 +1,102 @@
 erDiagram
-    Categorii_Evenimente ||--o{ Evenimente : "include"
-    Locatii ||--o{ Evenimente : "gazduieste"
-    Evenimente ||--o{ Bilete : "aloca"
-    Clienti ||--o{ Comenzi : "plaseaza"
-    Comenzi ||--o{ Bilete : "contine"
+    Cladire ||--o{ Sala : "contine"
+    Sala ||--o{ Sector_Sala : "este impartita in"
+    Sector_Sala ||--o{ Loc : "are"
+    Sala ||--o{ Programare : "gazduieste"
 
-    Categorii_Evenimente {
-        int id_categorie PK
-        string nume_categorie
+    Organizator ||--o{ Eveniment : "organizeaza"
+    Tip_Eveniment ||--o{ Eveniment : "clasifica"
+    Eveniment ||--o{ Programare : "este planificat ca"
+    Eveniment ||--o{ Eveniment_Artist : "include"
+    Artist ||--o{ Eveniment_Artist : "participa"
+
+    Client ||--o{ Comanda_Tranzactie : "plaseaza"
+    Comanda_Tranzactie ||--o{ Bilet : "contine"
+    Programare ||--o{ Bilet : "valabil pentru"
+    Loc ||--o{ Bilet : "rezervat pe"
+    Categorie_Bilet ||--o{ Bilet : "tip de"
+
+    Cladire {
+        int id_cladire PK
+        string nume_cladire
+        string adresa
+        int an_constructie
     }
-    Locatii {
-        int id_locatie PK
+    Sala {
+        int id_sala PK
+        int id_cladire FK
         string nume_sala
-        int capacitate
+        int capacitate_totala
+        string tip_sala
     }
-    Evenimente {
-        int id_eveniment PK
-        int id_categorie FK
-        int id_locatie FK
-        string titlu
+    Sector_Sala {
+        int id_sector PK
+        int id_sala FK
+        string nume_sector
+        float multiplicator_pret
     }
-    Clienti {
-        int id_client PK
-        string nume
-        string email
-    }
-    Comenzi {
-        int id_comanda PK
-        int id_client FK
-        date data_comanda
-    }
-    Bilete {
-        int id_bilet PK
-        int id_comanda FK
-        int id_eveniment FK
+    Loc {
+        int id_loc PK
+        int id_sector FK
+        int rand
         int numar_loc
     }
+    Organizator {
+        int id_organizator PK
+        string nume_companie
+        string email
+        string telefon
+    }
+    Tip_Eveniment {
+        int id_tip PK
+        string denumire
+    }
+    Eveniment {
+        int id_eveniment PK
+        int id_organizator FK
+        int id_tip FK
+        string titlu
+        int durata_minute
+    }
+    Artist {
+        int id_artist PK
+        string nume_artist
+        string gen_artistic
+    }
+    Eveniment_Artist {
+        int id_eveniment FK
+        int id_artist FK
+    }
+    Programare {
+        int id_programare PK
+        int id_eveniment FK
+        int id_sala FK
+        datetime data_ora_inceput
+        string status
+    }
+    Client {
+        int id_client PK
+        string nume
+        string prenume
+        string email
+    }
+    Categorie_Bilet {
+        int id_categorie PK
+        string denumire
+        float reducere_procent
+    }
+    Comanda_Tranzactie {
+        int id_comanda PK
+        int id_client FK
+        datetime data_achizitie
+        float total_plata
+    }
+    Bilet {
+        int id_bilet PK
+        int id_comanda FK
+        int id_programare FK
+        int id_loc FK
+        int id_categorie FK
+        float pret_final
+    }
+    
