@@ -1,8 +1,7 @@
 CREATE TABLE Cladire (
     id_cladire INT PRIMARY KEY,
     nume_cladire VARCHAR(100) NOT NULL,
-    adresa VARCHAR(255) NOT NULL,
-    an_constructie INT
+    adresa VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Tip_Eveniment (
@@ -67,7 +66,6 @@ CREATE TABLE Sector_Sala (
     id_sector INT PRIMARY KEY,
     id_sala INT NOT NULL,
     nume_sector VARCHAR(50) NOT NULL,
-    multiplicator_pret DECIMAL(5,2) DEFAULT 1.00,
     FOREIGN KEY (id_sala) REFERENCES Sala(id_sala)
 );
 

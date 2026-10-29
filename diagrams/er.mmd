@@ -20,7 +20,6 @@ erDiagram
         int id_cladire PK
         string nume_cladire
         string adresa
-        int an_constructie
     }
     Sala {
         int id_sala PK
@@ -33,7 +32,6 @@ erDiagram
         int id_sector PK
         int id_sala FK
         string nume_sector
-        float multiplicator_pret
     }
     Loc {
         int id_loc PK
@@ -99,4 +97,3 @@ erDiagram
         int id_categorie FK
         float pret_final
     }
-    
