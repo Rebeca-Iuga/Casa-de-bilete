@@ -39,13 +39,21 @@ Baza de date este construită din 14 tabele care se leagă între ele într-o or
 - Tabelul `Bilet` este cel care adună toate firele bazei de date. Un bilet generat aici se leagă de Comanda_Tranzactie (ca să arate că e plătit), de Programare (ca să știm la ce oră și dată trebuie să meargă clientul), de Loc (ca să știm exact pe ce scaun are voie să se așeze) și de Categorie_Bilet (ca să știm dacă e bilet cu reducere).
 
 ## 4. Ce găsești în acest proiect
-- `docs/` - Aici este documentația oficială în format Word.
-- `diagrams/` - Schema vizuală cu legăturile dintre cele 14 tabele.
-- `db/` - Fișierele cu cod SQL unde se creează tabelele și se adaugă datele.
-- `app/` - Aici va fi aplicația finală și codul pentru inteligența artificială.
+- `docs/Iuga_Rebeca_Proiect_BD.docx` - Documentația oficială în format Word.
+- `diagrams/diagramachenbuna.png` - Diagrama conceptuală Chen cu legăturile dintre cele 14 tabele.
+- `db/schema/01_create_tables.sql` - Codul SQL pentru crearea celor 14 tabele, cu cheile primare, cheile externe și constrângerile de integritate (`UNIQUE`, `CHECK`).
+- `db/schema/02_insert_data.sql` - Scriptul SQL cu datele de test care populează toate cele 14 tabele.
+- `app/` - *(urmează)* Aici va fi aplicația finală și partea de inteligență artificială.
 
-## 5. Ce am făcut până acum (Săptămâna 4 și 5)
-- Am setat dosarele pe GitHub.
+## 5. Progres pe săptămâni
+
+### Săptămânile 4 și 5
+- Am setat structura dosarelor pe GitHub.
 - Am regândit logica proiectului și am mărit baza de date la 14 tabele ca să pot gestiona cele 5 clădiri.
-- Am refăcut diagrama bazei de date și documentația Word la părțile de scop, obiective, analiză și dicționar de date.
-- Am scris codul SQL pentru crearea tabelelor cu toate legăturile logice.
+- Am realizat diagrama conceptuală Chen și am scris primele secțiuni ale documentației Word.
+- Am scris codul SQL inițial pentru crearea tabelelor.
+
+### Săptămânile 5 și 6
+- Am extins și structurat documentația Word (Scop, Obiective, Analiza cerințelor, descrierea entităților, Modelul logic și Normalizarea până la FN3).
+- Am actualizat `01_create_tables.sql` cu constrângeri de integritate (`UNIQUE` pentru a preveni suprapunerea locurilor și a programărilor, plus `CHECK` pentru validarea valorilor).
+- Am creat și urcat fișierul `02_insert_data.sql` cu date realiste de populare pentru toate cele 14 tabele.
