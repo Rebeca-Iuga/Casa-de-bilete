@@ -6,7 +6,7 @@ CREATE TABLE Cladire (
 
 CREATE TABLE Tip_Eveniment (
     id_tip INT PRIMARY KEY,
-    denumire VARCHAR(50) NOT NULL
+    denumire VARCHAR(50) NOT NULL UNIQUE
 );
 
 CREATE TABLE Organizator (
@@ -31,25 +31,25 @@ CREATE TABLE Client (
 
 CREATE TABLE Categorie_Bilet (
     id_categorie INT PRIMARY KEY,
-    denumire VARCHAR(50) NOT NULL,
-    reducere_procent DECIMAL(5,2) DEFAULT 0.00
+    denumire VARCHAR(50) NOT NULL UNIQUE,
+    reducere_procent DECIMAL(5,2) DEFAULT 0.00 CHECK (reducere_procent >= 0 AND reducere_procent <= 100)
 );
 
 CREATE TABLE Sala (
     id_sala INT PRIMARY KEY,
     id_cladire INT NOT NULL,
     nume_sala VARCHAR(100) NOT NULL,
-    capacitate_totala INT NOT NULL,
+    capacitate_totala INT NOT NULL CHECK (capacitate_totala > 0),
     tip_sala VARCHAR(50),
     FOREIGN KEY (id_cladire) REFERENCES Cladire(id_cladire)
 );
 
 CREATE TABLE Eveniment (
     id_eveniment INT PRIMARY KEY,
-    id_organizator INT,
+    id_organizator INT NOT NULL,
     id_tip INT NOT NULL,
     titlu VARCHAR(150) NOT NULL,
-    durata_minute INT NOT NULL,
+    durata_minute INT NOT NULL CHECK (durata_minute > 0),
     FOREIGN KEY (id_organizator) REFERENCES Organizator(id_organizator),
     FOREIGN KEY (id_tip) REFERENCES Tip_Eveniment(id_tip)
 );
@@ -58,7 +58,7 @@ CREATE TABLE Comanda_Tranzactie (
     id_comanda INT PRIMARY KEY,
     id_client INT NOT NULL,
     data_achizitie DATETIME NOT NULL,
-    total_plata DECIMAL(10,2) NOT NULL,
+    total_plata DECIMAL(10,2) NOT NULL CHECK (total_plata >= 0),
     FOREIGN KEY (id_client) REFERENCES Client(id_client)
 );
 
@@ -70,8 +70,8 @@ CREATE TABLE Sector_Sala (
 );
 
 CREATE TABLE Eveniment_Artist (
-    id_eveniment INT,
-    id_artist INT,
+    id_eveniment INT NOT NULL,
+    id_artist INT NOT NULL,
     PRIMARY KEY (id_eveniment, id_artist),
     FOREIGN KEY (id_eveniment) REFERENCES Eveniment(id_eveniment),
     FOREIGN KEY (id_artist) REFERENCES Artist(id_artist)
@@ -83,6 +83,7 @@ CREATE TABLE Programare (
     id_sala INT NOT NULL,
     data_ora_inceput DATETIME NOT NULL,
     status VARCHAR(20) DEFAULT 'Activ',
+    UNIQUE (id_sala, data_ora_inceput),
     FOREIGN KEY (id_eveniment) REFERENCES Eveniment(id_eveniment),
     FOREIGN KEY (id_sala) REFERENCES Sala(id_sala)
 );
@@ -90,8 +91,9 @@ CREATE TABLE Programare (
 CREATE TABLE Loc (
     id_loc INT PRIMARY KEY,
     id_sector INT NOT NULL,
-    rand INT NOT NULL,
-    numar_loc INT NOT NULL,
+    rand INT NOT NULL CHECK (rand > 0),
+    numar_loc INT NOT NULL CHECK (numar_loc > 0),
+    UNIQUE (id_sector, rand, numar_loc),
     FOREIGN KEY (id_sector) REFERENCES Sector_Sala(id_sector)
 );
 
@@ -99,9 +101,10 @@ CREATE TABLE Bilet (
     id_bilet INT PRIMARY KEY,
     id_comanda INT NOT NULL,
     id_programare INT NOT NULL,
-    id_loc INT,
+    id_loc INT NOT NULL,
     id_categorie INT NOT NULL,
-    pret_final DECIMAL(10,2) NOT NULL,
+    pret_final DECIMAL(10,2) NOT NULL CHECK (pret_final >= 0),
+    UNIQUE (id_programare, id_loc),
     FOREIGN KEY (id_comanda) REFERENCES Comanda_Tranzactie(id_comanda),
     FOREIGN KEY (id_programare) REFERENCES Programare(id_programare),
     FOREIGN KEY (id_loc) REFERENCES Loc(id_loc),
